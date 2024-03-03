@@ -6,7 +6,7 @@ import call from 'react-native-phone-call';
 
 export default function ContactList() {
 const [contacts, setContacts] = useState(null);
-const [selectedNumber, setSelectedNumber] = useState(null);
+// const [selectedNumber, setSelectedNumber] = useState(null);
   useEffect(() => {
     (async () => {
       const { status } = await Contacts.requestPermissionsAsync();
@@ -35,9 +35,9 @@ const [selectedNumber, setSelectedNumber] = useState(null);
                 <TouchableOpacity key={phoneIndex} activeOpacity={0.7}
                 className="p-2 rounded-lg mt-4"
                 onPress={() => {
-                    setSelectedNumber(phone.number);
+                    // setSelectedNumber(phone.number);
                     const args = {
-                        number: selectedNumber,
+                        number: phone.number,
                         prompt: true,
                       };
                       call(args).catch(console.error);}}>
