@@ -4,13 +4,43 @@ import { Text, View, SafeAreaView, Button, Image } from "react-native";
 import { useEffect, useRef, useState } from "react";
 import { Camera } from "expo-camera";
 import * as FileSystem from "expo-file-system";
+import { Audio } from "expo-av";
 
 export default function Capture({ setState }) {
   const [photo, setPhoto] = useState();
   const [drawsy, setDrawsy] = useState(0);
+  const [play, setPlay] = useState(false);
   let cameraRef = useRef();
   const [hasCameraPermission, setHasCameraPermission] = useState();
+  const [sound, setSound] = useState();
+  const enableAudio = async () => {
+    await Audio.setAudioModeAsync({
+      playsInSilentModeIOS: true,
+      staysActiveInBackground: false,
+      interruptionModeAndroid: INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
+      shouldDuckAndroid: false,
+    });
+  };
+  async function playSound() {
+    console.log("Loading Sound");
+    const { sound } = await Audio.Sound.createAsync(
+      require("../assets/music/HeatWaves.mp3")
+    );
+    setSound(sound);
 
+    console.log("Play Sound");
+    await sound.setPositionAsync(0);
+    await sound.playAsync();
+  }
+
+  useEffect(() => {
+    return sound
+      ? () => {
+          console.log("Unloading Sound");
+          sound.unloadAsync();
+        }
+      : undefined;
+  }, [sound]);
   useEffect(() => {
     (async () => {
       const cameraPermission = await Camera.requestCameraPermissionsAsync();
@@ -26,7 +56,10 @@ export default function Capture({ setState }) {
     // Cleanup function to clear the timeout if the component unmounts
     return () => clearInterval(interval);
   }, []);
-
+  useEffect(() => {
+    if (play) playSound();
+    if (!play) sound?.setStatusAsync({ shouldPlay: false, positionMillis: 0 });
+  }, [play]);
   let takePic = async () => {
     let options = {
       quality: 0.1,
@@ -54,9 +87,11 @@ export default function Capture({ setState }) {
         setDrawsy(json.drawsiness);
         if (json.drawsiness > 0.8) {
           setState(2);
+          setPlay(true);
         }
         if (json.drawsiness < 0.2) {
           setState(0);
+          setPlay(false);
         }
         return json;
       })
