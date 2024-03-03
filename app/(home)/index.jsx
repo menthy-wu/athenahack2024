@@ -13,13 +13,13 @@ export default function TabOneScreen() {
       <Link href="/driving" asChild>
         <Pressable className="w-5/6 mt-5">
           {({ pressed }) => (
-            <View className={`flex-row items-center w-full rounded-full p-3 justify-center bg-athena-bright-purple ${pressed && " opacity-50"}`}>
+            <View className={`flex-row items-center w-full rounded-full p-2 justify-center bg-athena-bright-purple ${pressed && " opacity-50"}`}>
             <FontAwesome
               name="play"
               size={25}
               color="#FFF"
             />
-            <Text className=" text-white text-2xl font-semibold"> “Start Route” </Text>
+            <Text className=" text-white text-2xl font-semibold"> Start Trip </Text>
               </View>
           )}
         </Pressable>
