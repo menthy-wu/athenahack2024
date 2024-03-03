@@ -1,34 +1,15 @@
 //Source from https://github.com/chelseafarley/CameraAppTutorial/blob/main/App.js
-import { StatusBar } from 'expo-status-bar';
-import { Text, View, SafeAreaView, Button, Image } from 'react-native';
-import { useEffect, useRef, useState } from 'react';
-import { Camera } from 'expo-camera';
-const GetImage = ({cameraRef}) => {
-    const [photo, setPhoto] = useState();
+import { StatusBar } from "expo-status-bar";
+import { Text, View, SafeAreaView, Button, Image } from "react-native";
+import { useEffect, useRef, useState } from "react";
+import { Camera } from "expo-camera";
+import * as FileSystem from "expo-file-system";
 
-    useEffect(() => {
-        // Use setTimeout to update the message after 2000 milliseconds (2 seconds)
-        const interval = setInterval(() => {takePic(); }, 1000);
-        
-        // Cleanup function to clear the timeout if the component unmounts
-        return () => clearInterval(interval);
-      }, []);
-    
-      let takePic = async () => {
-        let options = {
-          quality: 1,
-          base64: true,
-          exif: false
-        };
-    
-        let newPhoto = await cameraRef.current.takePictureAsync(options);
-          //setPhotos([...photo,    newPhoto]);
-          setPhoto(newPhoto);
-          console.log("take picture");
-      };
-};
-  
+const GetImage = ({ cameraRef, photo, setPhoto }) => {};
+
 export default function Capture() {
+  const [photo, setPhoto] = useState();
+  const [drawsy, setDrawsy] = useState(0);
   let cameraRef = useRef();
   const [hasCameraPermission, setHasCameraPermission] = useState();
 
@@ -38,18 +19,61 @@ export default function Capture() {
       setHasCameraPermission(cameraPermission.status === "granted");
     })();
   }, []);
-    
+  useEffect(() => {
+    // Use setTimeout to update the message after 2000 milliseconds (2 seconds)
+    const interval = setInterval(() => {
+      takePic();
+    }, 1000);
+
+    // Cleanup function to clear the timeout if the component unmounts
+    return () => clearInterval(interval);
+  }, []);
+
+  let takePic = async () => {
+    let options = {
+      quality: 0.1,
+      base64: true,
+      exif: false,
+      format: "jpg",
+      height: 640,
+      weight: 480,
+    };
+
+    let newPhoto = await cameraRef.current.takePictureAsync(options);
+    const base64 = await FileSystem.readAsStringAsync(newPhoto.uri, {
+      encoding: "base64",
+    });
+    setPhoto(base64);
+    fetch("https://6bbf-207-151-53-33.ngrok-free.app/drawsy", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ image: base64 }),
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        setDrawsy(json.drawsiness);
+        return json;
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
   if (hasCameraPermission === undefined) {
-    return <Text>Requesting permissions...</Text>
+    return <Text>Requesting permissions...</Text>;
   } else if (!hasCameraPermission) {
-    return <Text>Permission for camera not granted. Please change this in settings.</Text>
+    return (
+      <Text>
+        Permission for camera not granted. Please change this in settings.
+      </Text>
+    );
   }
 
   return (
-      <SafeAreaView style="flex-1 justify-center items-center">
-          <Camera className="w-screen h-screen" ref={cameraRef}>
-          <GetImage cameraRef={cameraRef} />
-          </Camera>
-      </SafeAreaView>
+    <SafeAreaView style="flex-1 justify-center items-center">
+      <Text>{drawsy}</Text>
+      <Camera type="front" className="w-screen h-3/4" ref={cameraRef} />
+    </SafeAreaView>
   );
 }

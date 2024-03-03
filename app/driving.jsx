@@ -3,11 +3,12 @@ import { Platform, StyleSheet } from "react-native";
 
 import EditScreenInfo from "@/components/EditScreenInfo";
 import { Text, View } from "@/components/Themed";
+import Capture from "../components/Capture";
 
 export default function DrivingScreen() {
   return (
     <View className="flex items-center justify-center h-full bg-white">
-      <Text>cemara</Text>
+      <Capture />
     </View>
   );
 }
