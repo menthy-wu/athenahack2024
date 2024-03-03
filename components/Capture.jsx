@@ -6,7 +6,7 @@ import { Camera } from "expo-camera";
 import * as FileSystem from "expo-file-system";
 import { Audio } from "expo-av";
 
-export default function Capture({ setState }) {
+export default function Capture({ setState, setGesture, gesture }) {
   const [photo, setPhoto] = useState();
   const [drawsy, setDrawsy] = useState(0);
   const [play, setPlay] = useState(false);
@@ -75,6 +75,27 @@ export default function Capture({ setState }) {
       encoding: "base64",
     });
     setPhoto(base64);
+    fetch("https://6bbf-207-151-53-33.ngrok-free.app/gesture", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ image: base64 }),
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        console.log(json.score);
+        console.log(json.gesture);
+        console.log(gesture);
+
+        if (json.score > 0.7 && json.gesture !== "" && gesture == "none") {
+          setGesture(json.gesture);
+        }
+        return json;
+      })
+      .catch((error) => {
+        console.error(error);
+      });
     fetch("https://6bbf-207-151-53-33.ngrok-free.app/drawsy", {
       method: "POST",
       headers: {

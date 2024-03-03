@@ -7,11 +7,13 @@ import {
 import { useFonts } from "expo-font";
 import { Link, Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { useColorScheme } from "@/components/useColorScheme";
 import { Pressable } from "react-native";
 import Colors from "@/constants/Colors";
+
+import { DataContext } from "../components/dataContext";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -51,31 +53,36 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
+  const [data, setData] = useState({
+    start: null,
+  });
 
   return (
-    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(home)" options={{ headerShown: false }} />
-        <Stack.Screen
-          name="driving"
-          options={{
-            headerLeft: () => (
-              <Link href="/(home)" asChild>
-                <Pressable>
-                  {({ pressed }) => (
-                    <FontAwesome
-                      name="arrow-left"
-                      size={25}
-                      color={Colors[colorScheme ?? "light"].text}
-                      style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-                    />
-                  )}
-                </Pressable>
-              </Link>
-            ),
-          }}
-        />
-      </Stack>
-    </ThemeProvider>
+    <DataContext.Provider value={{ data, setData }}>
+      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+        <Stack>
+          <Stack.Screen name="(home)" options={{ headerShown: false }} />
+          <Stack.Screen
+            name="driving"
+            options={{
+              headerLeft: () => (
+                <Link href="/(home)" asChild>
+                  <Pressable>
+                    {({ pressed }) => (
+                      <FontAwesome
+                        name="arrow-left"
+                        size={25}
+                        color={Colors[colorScheme ?? "light"].text}
+                        style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
+                      />
+                    )}
+                  </Pressable>
+                </Link>
+              ),
+            }}
+          />
+        </Stack>
+      </ThemeProvider>
+    </DataContext.Provider>
   );
 }
