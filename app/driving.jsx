@@ -4,6 +4,8 @@ import { Text, View, TouchableOpacity } from "react-native";
 import Header from "@/components/Header";
 import Capture from "@/components/Capture";
 import { useState } from "react";
+import CallPage from "../components/CallPage";
+import Live from "../components/Live";
 
 export default function DrivingScreen() {
   const [state, setState] = useState(0);
@@ -18,7 +20,9 @@ export default function DrivingScreen() {
           gesture={gesture}
         />
         <View className="absolute w-full items-center">
-          {gesture == "call" && <Text>Call</Text>}
+          <Live />
+          {gesture == "call" && <CallPage />}
+          {gesture == "palm" && setGesture("none")}
           {gesture == "message" && <Text>message</Text>}
           {gesture == "none" && state === 1 && (
             <Header title="Highly alert" alert="76" />
