@@ -1,11 +1,11 @@
-import { View, Text } from "react-native"
+import { View, Text, Image } from "react-native"
 import { Icon } from '@rneui/themed';
 export default function Header({ title, time, mile, alert, drowsy }) {
         return (
-            <View className="p-5 bg-white w-5/6 items-center rounded-2xl">
+            <View className={`p-5 bg-white w-11/12 items-center rounded-3xl ${drowsy&&"border-athena-red border-8"}`}>
                 {(drowsy || time) && (
                     <View className={` rounded-2xl py-2 px-5 ${drowsy ? "bg-athena-light-red" : " bg-athena-light-purple"}`}> 
-                        <Text className={`font-bold ${drowsy ? " text-athena-red" : " text-athena-bright-purple"}`}>{drowsy ? "warning" : "03.02.24"}</Text>
+                        <Text className={`font-bold ${drowsy ? " text-athena-red" : " text-athena-bright-purple"}`}>{drowsy ? "warning" : "03.03.24"}</Text>
                         </View>
                 )}
 
