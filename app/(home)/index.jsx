@@ -1,29 +1,30 @@
-import { Pressable, StyleSheet } from "react-native";
-
-import EditScreenInfo from "@/components/EditScreenInfo";
-import { Text, View } from "@/components/Themed";
+import { Pressable } from "react-native";
+import Header  from "@/components/Header";
+import { Text, View, ImageBackground } from "react-native";
 import { Link } from "expo-router";
 import { FontAwesome } from "@expo/vector-icons";
 import Colors from "@/constants/Colors";
 import { useColorScheme } from "@/components/useColorScheme";
-
 export default function TabOneScreen() {
   const colorScheme = useColorScheme();
   return (
-    <View className="flex-1 justify-center items-center">
-      <Text>Landing Screen</Text>
+
+      <ImageBackground className="flex-1 w-screen h-screen items-center pt-[30%]" source={require('@/public/background.png')} >
+      <Header title="USC Drive party" time="38" mile="18"/>
       <Link href="/driving" asChild>
-        <Pressable>
+        <Pressable className="w-5/6 mt-5">
           {({ pressed }) => (
+            <View className={`flex-row items-center w-full rounded-full p-3 justify-center bg-athena-bright-purple ${pressed && " opacity-50"}`}>
             <FontAwesome
               name="play"
               size={25}
               color={Colors[colorScheme ?? "light"].text}
-              style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
             />
+            <Text className=" text-white text-2xl font-semibold"> “Start Route” </Text>
+              </View>
           )}
         </Pressable>
-      </Link>
-    </View>
+        </Link>
+    </ImageBackground>
   );
 }
