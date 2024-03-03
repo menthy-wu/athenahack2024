@@ -21,8 +21,12 @@ const LocationRequestModal = () => {
     if (status === "granted") {
       // Permission granted, you can get the location
       let location = await Location.getCurrentPositionAsync({});
-      setLocation(location);
-      console.log(location);
+      // Convert location object to an array format
+      const locationArray = [
+        location.coords.latitude,
+        location.coords.longitude,
+      ];
+      setLocation(locationArray); // Store the location as an array
     } else {
       // Permission denied
       console.log("Location permission not granted");
@@ -53,7 +57,7 @@ const LocationRequestModal = () => {
               margin: 20,
               backgroundColor: "white",
               borderRadius: 20,
-              padding: 35,
+              padding: "22px",
               alignItems: "center",
               elevation: 5,
             }}
@@ -68,9 +72,6 @@ const LocationRequestModal = () => {
           </View>
         </View>
       </Modal>
-      <Text>
-        <Text>Latitude: {location}</Text>
-      </Text>
     </View>
   );
 };

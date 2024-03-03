@@ -75,6 +75,16 @@ const [contacts, setContacts] = useState(null);
             
           ))}
     </View>
+    <View className="border-athena-gray-200 rounded-3xl w-8/12 border-4 p-2 my-4">
+    <Icon
+              name="microphone"
+              size={25}
+              type="font-awesome"
+              color="#545454"
+          />
+
+    </View>
+    
     </SafeAreaView>
   );
 }
