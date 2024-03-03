@@ -1,7 +1,7 @@
 import { Text, View } from "react-native";
 import { useState, useEffect } from 'react';
-import ContactList from "../../components/ContactList"
-import Record from "../../components/Record"
+import ContactList from "./ContactList"
+import Record from "./Record"
 import call from 'react-native-phone-call';
 export default function Contact() {
     const [contacts, setContacts] = useState(null);

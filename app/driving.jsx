@@ -6,6 +6,7 @@ import Capture from "@/components/Capture";
 import { useState } from "react";
 import CallPage from "../components/CallPage";
 import Live from "../components/Live";
+import Contact from "../components/Contact";
 
 export default function DrivingScreen() {
   const [state, setState] = useState(0);
@@ -21,7 +22,7 @@ export default function DrivingScreen() {
         />
         <View className="absolute w-full items-center">
           <Live />
-          {gesture == "call" && <CallPage />}
+          {gesture == "call" && <Contact />}
           {gesture == "palm" && setGesture("none")}
           {gesture == "message" && <Text>message</Text>}
           {gesture == "none" && state === 1 && (

@@ -44,7 +44,7 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <TabBarIcon name="gear" color={color} />,
         }}
       />
-      <Tabs.Screen
+      {/* <Tabs.Screen
         name="contact"
         options={{
           title: "Contact",
@@ -52,7 +52,7 @@ export default function TabLayout() {
             <TabBarIcon name="comment-o" color={color} />
           ),
         }}
-      />
+      /> */}
     </Tabs>
   );
 }
