@@ -18,7 +18,7 @@ export default function TabOneScreen() {
             <FontAwesome
               name="play"
               size={25}
-              color={Colors[colorScheme ?? "light"].text}
+              color="#FFF"
             />
             <Text className=" text-white text-2xl font-semibold"> “Start Route” </Text>
               </View>
