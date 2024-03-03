@@ -1,5 +1,5 @@
 import { Pressable, StyleSheet } from "react-native";
-
+import Header  from "@/components/Header";
 import EditScreenInfo from "@/components/EditScreenInfo";
 import { Text, View } from "@/components/Themed";
 import { Link } from "expo-router";
@@ -12,6 +12,7 @@ export default function TabOneScreen() {
   return (
     <View className="flex-1 justify-center items-center">
       <Text>Landing Screen</Text>
+      <Header drowsy={true} title="Highly drowsy"/>
       <Link href="/driving" asChild>
         <Pressable>
           {({ pressed }) => (

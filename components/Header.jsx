@@ -1,16 +1,16 @@
 import { View, Text } from "react-native"
 import { Icon } from '@rneui/themed';
-export default function Header({ title, time, mile, alert, drowsy,summary }) {
+export default function Header({ title, time, mile, alert, drowsy }) {
         return (
-            <View className="p-5 bg-white w-full items-center rounded-2xl">
-                {(summary || drowsy || time) && (
+            <View className="p-5 bg-white w-5/6 items-center rounded-2xl">
+                {(drowsy || time) && (
                     <View className={` rounded-2xl py-2 px-5 ${drowsy ? "bg-athena-light-red" : " bg-athena-light-purple"}`}> 
                         <Text className={`font-bold ${drowsy ? " text-athena-red" : " text-athena-bright-purple"}`}>{drowsy ? "warning" : "03.02.24"}</Text>
                         </View>
                 )}
 
                 <Text className="text-4xl font-bold text-athena-gray-500 my-5">{title}</Text>
-                {((time && mile)||summary) && (
+                {(time && mile) && (
                     <View className="flex-row">
                     <View className=" flex-row m-1 bg-athena-gray-100 py-2.5 px-8 rounded-xl items-center">
                         <Icon
@@ -31,16 +31,19 @@ export default function Header({ title, time, mile, alert, drowsy,summary }) {
                 </View>
                 )}
                 {alert && (
-                    <Text className="p-2 bg-opacity-20 bg-athena-bright-purple text-athena-bright-purple">{alert}% alertness</Text>
+                    <View className="rounded-2xl py-2 px-5 bg-athena-light-purple"> 
+                    <Text className="font-bold text-athena-bright-purple">{alert}% alertness</Text>
+                    </View>
                 )}
                 {drowsy && (
-                    <View className="w-full p-2 bg-athena-gray-200">
+                    <View className="w-full p-2.5 bg-athena-gray-200 flex-row justify-center items-center rounded-full">
                         <Icon
                             name="hourglass-half"
+                            size={17}
                             type="font-awesome"
                             color="#545454"
                         />
-                        <Text className=" text-athena-gray-500">redirecting to music...</Text>
+                        <Text className=" font-bold text-athena-gray-500 ml-2">redirecting to music...</Text>
                     </View>
                 )}
           </View>
