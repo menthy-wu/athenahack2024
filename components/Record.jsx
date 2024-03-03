@@ -3,8 +3,8 @@ import { View, Button } from 'react-native';
 import { Audio } from 'expo-av';
 import * as FileSystem from 'expo-file-system'; // Import FileSystem
 
-export default function Record() {
-  const [recording, setRecording] = useState();
+export default function Record({recording, setRecording}) {
+//   const [recording, setRecording] = useState();
   const [permissionResponse, requestPermission] = Audio.usePermissions();
 
   async function startRecording() {
@@ -29,8 +29,7 @@ export default function Record() {
     const uri = recording.getURI(); // Get the URI of the recording
 
     const base64 = await FileSystem.readAsStringAsync(uri, { encoding: FileSystem.EncodingType.Base64 });
-    console.log('Base64:', base64);
-
+    setRecording(base64);
     setRecording(undefined);
     await Audio.setAudioModeAsync({
       allowsRecordingIOS: false,

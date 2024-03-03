@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, SafeAreaView } from 'react-native';
 import * as Contacts from 'expo-contacts';
-import call from 'react-native-phone-call';
+// import call from 'react-native-phone-call';
 import ContactCard from './ContactCard';
 // import { CgSandClock } from "react-icons/cg";
 import { Icon } from '@rneui/themed';
 // import SmsScreen from "@/components/SmsSend"
-import Record from "@/components/Record"
+// import Record from "@/components/Record"
 
-export default function ContactList() {
-const [contacts, setContacts] = useState(null);
+export default function ContactList({contacts, setContacts}) {
+// const [contacts, setContacts] = useState(null);
 // const [selectedNumber, setSelectedNumber] = useState(null);
   useEffect(() => {
     (async () => {
@@ -19,13 +19,14 @@ const [contacts, setContacts] = useState(null);
 
         if (data.length > 0) {
           setContacts(data);
-        //   console.log(data[0]);
+          console.log(data[0]);
         //   console.log(data[0].firstName);
         //   console.log(data[0].phoneNumbers[0].number);
         }
       }
     })();
   }, []);
+
 
   const topContacts = contacts?.slice(0,3);
 
@@ -62,9 +63,8 @@ const [contacts, setContacts] = useState(null);
               type="font-awesome"
               color="#545454"
           />
-
     </View>
-    <Record />
+    {/* <Record /> */}
     
     </SafeAreaView>
   );
