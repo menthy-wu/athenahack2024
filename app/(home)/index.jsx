@@ -3,7 +3,6 @@ import Header  from "@/components/Header";
 import { Text, View, ImageBackground } from "react-native";
 import { Link } from "expo-router";
 import { FontAwesome } from "@expo/vector-icons";
-import Colors from "@/constants/Colors";
 import { useColorScheme } from "@/components/useColorScheme";
 export default function TabOneScreen() {
   const colorScheme = useColorScheme();
@@ -18,7 +17,7 @@ export default function TabOneScreen() {
             <FontAwesome
               name="play"
               size={25}
-              color={Colors[colorScheme ?? "light"].text}
+              color="#FFF"
             />
             <Text className=" text-white text-2xl font-semibold"> “Start Route” </Text>
               </View>

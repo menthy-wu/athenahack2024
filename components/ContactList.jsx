@@ -35,15 +35,15 @@ export default function ContactList({contacts, setContacts}) {
           <View className="w-10/12 flex flex-row bg-athena-gray-100 rounded-full p-2 mt-4 justify-center items-center">
           <Icon
               name="hourglass-half"
-              size={17}
+              size={13}
               type="font-awesome"
               color="#545454"
           />
-        <Text className="text-athena-gray-500 text-center text-xl font-bold px-2">Going through Contacts ...</Text>
+        <Text className="text-athena-gray-500 text-center text-lg font-bold px-2">Going through Contacts ...</Text>
       </View>
-    <View className="flex flex-col w-10/12 my-4">
+    <View className="flex flex-col w-10/12 my-1">
       {topContacts?.map((person, index) => (
-            <View key={index} className="flex justify-center bg-white py-3">
+            <View key={index} className="flex justify-center bg-white py-1.5">
               {/* <Text>{person.firstName}</Text> */}
             {/* {console.log("person.phoneNumbers")} */}
               {person.phoneNumbers?.map((phone, phoneIndex) => (
@@ -56,7 +56,7 @@ export default function ContactList({contacts, setContacts}) {
             
           ))}
     </View>
-    <View className="border-athena-gray-200 rounded-3xl w-8/12 border-4 p-2 my-4">
+    <View className="border-athena-gray-200 flex-row rounded-3xl w-10/12 justify-center border-4 p-2 my-2">
     <Icon
               name="microphone"
               size={25}
