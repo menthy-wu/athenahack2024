@@ -16,7 +16,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.anonymous.athenahack2024"
     },
     "android": {
       "adaptiveIcon": {
@@ -29,7 +30,13 @@
       "output": "static",
       "favicon": "./assets/images/favicon.png"
     },
-    "plugins":[
+
+    "plugins":[[
+      "expo-contacts",
+        {
+          "contactsPermission": "Allow $(PRODUCT_NAME) to access your contacts."
+        }
+    ],
           "expo-router",[
           "expo-camera",["expo-media-library",
           {
