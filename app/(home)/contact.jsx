@@ -20,11 +20,17 @@ export default function Contact() {
             })
             .then(response => response.json())
             .then(data => {
-                const args = {
-                    number: data["phone number"], 
-                    prompt: true,
-                };
-                call(args).catch(console.error);
+                if (data.mode === "call") {
+                    const args = {
+                        number: data["phone number"], 
+                        prompt: true,
+                    };
+                    call(args).catch(console.error);
+                } else if (data.mode === "text") {
+                    const smsNumber = data["phone number"]; 
+                    const smsMessage = encodeURIComponent(data.message);
+                    Linking.openURL(`sms:${smsNumber}?body=${smsMessage}`).catch(console.error);
+                }
             })
             .catch((error) => {
                 console.error('Error:', error);
