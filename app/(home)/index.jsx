@@ -3,7 +3,6 @@ import Header  from "@/components/Header";
 import { Text, View, ImageBackground } from "react-native";
 import { Link } from "expo-router";
 import { FontAwesome } from "@expo/vector-icons";
-import Colors from "@/constants/Colors";
 import { useColorScheme } from "@/components/useColorScheme";
 export default function TabOneScreen() {
   const colorScheme = useColorScheme();
