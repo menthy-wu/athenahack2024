@@ -7,6 +7,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import Colors from "@/constants/Colors";
 import { useColorScheme } from "@/components/useColorScheme";
 import ContactList from "@/components/ContactList";
+import PlayMusic from "@/components/PlayMusic"
 export default function TabOneScreen() {
   const colorScheme = useColorScheme();
   return (
@@ -24,7 +25,8 @@ export default function TabOneScreen() {
           )}
         </Pressable>
       </Link>
-      <ContactList />
+      {/* <ContactList /> */}
+      <PlayMusic />
     </View>
   );
 }
