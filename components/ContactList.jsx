@@ -6,6 +6,7 @@ import ContactCard from './ContactCard';
 // import { CgSandClock } from "react-icons/cg";
 import { Icon } from '@rneui/themed';
 // import SmsScreen from "@/components/SmsSend"
+import Record from "@/components/Record"
 
 export default function ContactList() {
 const [contacts, setContacts] = useState(null);
@@ -47,6 +48,28 @@ const [contacts, setContacts] = useState(null);
               {person.phoneNumbers?.map((phone, phoneIndex) => (
                 <View>
                   <ContactCard key={phoneIndex} name={person.firstName} number={phone.number}/>
+              </View> 
+              ))}
+              
+            </View>
+            
+          ))}
+    </View>
+    <View className="border-athena-gray-200 rounded-3xl w-8/12 border-4 p-2 my-4">
+    <Icon
+              name="microphone"
+              size={25}
+              type="font-awesome"
+              color="#545454"
+          />
+
+    </View>
+    <Record />
+    
+    </SafeAreaView>
+  );
+}
+
                 {/* <TouchableOpacity key={phoneIndex} activeOpacity={0.7}
                 className="p-2 rounded-lg mt-4"
                 onPress={() => {
@@ -68,23 +91,3 @@ const [contacts, setContacts] = useState(null);
                 }}>
                 <Text className="underline">Send Message</Text>
               </TouchableOpacity> */}
-              </View> 
-              ))}
-              
-            </View>
-            
-          ))}
-    </View>
-    <View className="border-athena-gray-200 rounded-3xl w-8/12 border-4 p-2 my-4">
-    <Icon
-              name="microphone"
-              size={25}
-              type="font-awesome"
-              color="#545454"
-          />
-
-    </View>
-    
-    </SafeAreaView>
-  );
-}
