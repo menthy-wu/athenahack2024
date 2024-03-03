@@ -10,6 +10,7 @@ const GetImage = ({ cameraRef, photo, setPhoto }) => {};
 export default function Capture() {
   const [photo, setPhoto] = useState();
   const [drawsy, setDrawsy] = useState(0);
+  const [gesture, setGesture] = useState({ gesture: "none", score: 0 });
   let cameraRef = useRef();
   const [hasCameraPermission, setHasCameraPermission] = useState();
 
@@ -44,7 +45,7 @@ export default function Capture() {
       encoding: "base64",
     });
     setPhoto(base64);
-    fetch("https://6bbf-207-151-53-33.ngrok-free.app/drawsy", {
+    fetch("https://6bbf-207-151-53-33.ngrok-free.app/gesture", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -53,7 +54,7 @@ export default function Capture() {
     })
       .then((response) => response.json())
       .then((json) => {
-        setDrawsy(json.drawsiness);
+        setGesture({ gesture: json.gesture, score: json.score });
         return json;
       })
       .catch((error) => {
@@ -72,7 +73,8 @@ export default function Capture() {
 
   return (
     <SafeAreaView style="flex-1 justify-center items-center">
-      <Text>{drawsy}</Text>
+      <Text>{gesture.gesture}</Text>
+      <Text>{gesture.score}</Text>
       <Camera type="front" className="w-screen h-3/4" ref={cameraRef} />
     </SafeAreaView>
   );
