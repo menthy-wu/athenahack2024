@@ -28,13 +28,15 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
         }}
       />
-        <Tabs.Screen
+      <Tabs.Screen
         name="summary"
         options={{
           title: "Summary",
-          tabBarIcon: ({ color }) => <TabBarIcon name="gear" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="align-justify" color={color} />
+          ),
         }}
-        />
+      />
       <Tabs.Screen
         name="setting"
         options={{
@@ -46,7 +48,9 @@ export default function TabLayout() {
         name="contact"
         options={{
           title: "Contact",
-          tabBarIcon: ({ color }) => <TabBarIcon name="gear" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="comment-o" color={color} />
+          ),
         }}
       />
     </Tabs>

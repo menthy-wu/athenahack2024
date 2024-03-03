@@ -5,9 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { Camera } from "expo-camera";
 import * as FileSystem from "expo-file-system";
 
-const GetImage = ({ cameraRef, photo, setPhoto }) => {};
-
-export default function Capture() {
+export default function Capture({ setState }) {
   const [photo, setPhoto] = useState();
   const [drawsy, setDrawsy] = useState(0);
   let cameraRef = useRef();
@@ -54,6 +52,12 @@ export default function Capture() {
       .then((response) => response.json())
       .then((json) => {
         setDrawsy(json.drawsiness);
+        if (json.drawsiness > 0.8) {
+          setState(2);
+        }
+        if (json.drawsiness < 0.2) {
+          setState(0);
+        }
         return json;
       })
       .catch((error) => {
@@ -71,9 +75,8 @@ export default function Capture() {
   }
 
   return (
-    <SafeAreaView style="flex-1 justify-center items-center">
-      <Text>{drawsy}</Text>
-      <Camera type="front" className="w-screen h-3/4" ref={cameraRef} />
+    <SafeAreaView style="flex-1 justify-center items-center h-full">
+      <Camera type="front" className="w-screen h-full" ref={cameraRef} />
     </SafeAreaView>
   );
 }
