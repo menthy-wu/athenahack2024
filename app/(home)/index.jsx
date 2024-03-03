@@ -7,6 +7,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import Colors from "@/constants/Colors";
 import { useColorScheme } from "@/components/useColorScheme";
 import ContactList from "@/components/ContactList";
+import * as Location from "expo-location";
 export default function TabOneScreen() {
   const colorScheme = useColorScheme();
   return (
